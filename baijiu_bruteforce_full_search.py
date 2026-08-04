@@ -1,42 +1,3 @@
-                       
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-   
-
 from __future__ import annotations
 
 import os
@@ -56,8 +17,7 @@ from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
 
 import numpy as np
 
-                                                                       
-                                  
+
 for _np_alias, _np_actual in {
     "bool": bool,
     "int": int,
@@ -82,23 +42,22 @@ from sklearn.ensemble import (
     AdaBoostRegressor,
 )
 
-                                                       
-                                                 
+
 try:
     from sklearn.ensemble import HistGradientBoostingRegressor
     HISTGBR_AVAILABLE = True
 except Exception:
     try:
-        from sklearn.experimental import enable_hist_gradient_boosting              
+        from sklearn.experimental import enable_hist_gradient_boosting
         from sklearn.ensemble import HistGradientBoostingRegressor
         HISTGBR_AVAILABLE = True
     except Exception:
         HistGradientBoostingRegressor = None
         HISTGBR_AVAILABLE = False
 
-                                                                     
+
 try:
-    from sklearn.ensemble import StackingRegressor              
+    from sklearn.ensemble import StackingRegressor
     STACKING_REGRESSOR_AVAILABLE = True
 except Exception:
     StackingRegressor = None
@@ -117,13 +76,11 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 from sklearn.svm import SVR
 from sklearn.tree import DecisionTreeRegressor
 
-                                   
+
 warnings.filterwarnings("default", category=ConvergenceWarning)
 warnings.filterwarnings("default", category=RuntimeWarning)
 
-                                                              
-      
-                                                              
+
 try:
     from xgboost import XGBRegressor
     XGBOOST_AVAILABLE = True
@@ -151,18 +108,15 @@ except Exception:
     TORCH_AVAILABLE = False
 
 
-                                                              
-    
-                                                              
 @dataclass
 class Config:
     random_state: int = 2026
     pipeline_version: str = "SAA_FULL_MODEL_SPACE_FINAL_NESTED_FIXED158_V1"
 
-                            
+
     full_search: bool = True
 
-                                  
+
     preprocess_methods: Tuple[str, ...] = (
         "RAW", "CENTER", "STANDARDIZE", "MINMAX", "ROBUST",
         "VECTOR_NORM", "AREA_NORM", "SG", "SG1", "SG2", "MSC", "SNV",
@@ -172,14 +126,14 @@ class Config:
         "BASELINE_POLY2-MSC", "BASELINE_POLY2-SG",
     )
 
-                     
+
     target_transforms: Tuple[str, ...] = ("raw", "log1p", "sqrt", "standard")
 
-                         
+
     train_ratio_list: Tuple[float, ...] = (0.75, 0.80, 0.85)
     n_repeated_split: int = 10
 
-                                                                      
+
     algorithms: Tuple[str, ...] = (
         "PLS", "Ridge", "LASSO", "ElasticNet", "BayesianRidge", "Huber",
         "PCR", "SVR-RBF", "SVR-Linear", "KRR-RBF", "RBF-LS-SVM",
@@ -191,7 +145,7 @@ class Config:
     use_lightgbm: bool = True
     use_catboost: bool = True
 
-                          
+
     enable_deep_learning: bool = True
     deep_algorithms: Tuple[str, ...] = ("TorchMLP", "Torch1DCNN", "TorchCNNGRU")
     deep_epochs: int = 140
@@ -202,10 +156,9 @@ class Config:
     deep_validation_fraction: float = 0.20
     use_gpu_for_torch: bool = True
 
-                                  
-                                                   
+
     enable_feature_selection: bool = True
-    feature_selection_mode: str = "fixed_count_nested"                                 
+    feature_selection_mode: str = "fixed_count_nested"
     fixed_feature_count: int = 158
     feature_count_candidates: Tuple[int, ...] = (158,)
     feature_selection_inner_folds: int = 4
@@ -214,22 +167,20 @@ class Config:
     feature_ranking_pls_components: int = 8
     feature_selection_min_vars: int = 12
 
-                                                   
-                                                             
-                                                   
+
     enable_outlier_filter: bool = False
-    outlier_filter_scope: str = "disabled"                               
+    outlier_filter_scope: str = "disabled"
     mccv_n_iter: int = 100
     max_outlier_ratio: float = 0.10
 
-               
+
     max_pls_components: int = 12
     max_pcr_components: int = 12
     inner_cv_folds: int = 5
     inner_cv_repeats: int = 2
     use_one_standard_error_rule: bool = True
 
-               
+
     strict_leakage_guard: bool = True
     shared_outer_splits: bool = True
     strict_stacking_nested_preprocess: bool = True
@@ -237,41 +188,38 @@ class Config:
     require_exact_30_algorithms: bool = True
     require_complete_factorial: bool = True
 
-             
-    search_level: str = "balanced"                          
 
-                                                                 
+    search_level: str = "balanced"
+
+
     n_jobs: int = 6
     parallel_backend: str = "threading"
 
-                                            
+
     show_realtime_log: bool = True
     show_failed_reason: bool = True
     show_detail_each_target: bool = True
     show_top_n: int = 50
     save_prediction_details: bool = True
 
-           
+
     output_excel: str = "8种酯类拉曼光谱分析结果.xlsx"
     output_model_dir: str = "baijiu_bruteforce_models"
 
-                                                
+
     enable_resume: bool = True
     checkpoint_file: str = "baijiu_bruteforce_checkpoint.pkl"
     save_checkpoint_every_target: bool = True
 
-                                                        
-                                         
+
     predeclared_exclusion_file: Optional[str] = None
     require_reason_for_missing_reference: bool = False
 
-                                                   
+
     output_compatibility_mode: str = "legacy_four_sheet"
     save_auxiliary_audit_csv: bool = True
 
-                                                              
-      
-                                                              
+
 @dataclass
 class ModelResult:
     target: str
@@ -346,7 +294,7 @@ class ModelResult:
 
 @dataclass
 class SplitSpec:
-                                                                               
+
     split_id: int
     train_ratio: float
     repeat_id: int
@@ -356,14 +304,14 @@ class SplitSpec:
     n_calibration_outliers: int = 0
 
 def stable_seed(base_seed: int, *parts: Any) -> int:
-                                                                                  
+
     payload = "|".join([str(base_seed)] + [str(x) for x in parts]).encode("utf-8")
     digest = hashlib.sha256(payload).digest()
     return int.from_bytes(digest[:4], byteorder="little", signed=False)
 
 
 def complete_oof_rmse(y_true: np.ndarray, y_pred: np.ndarray) -> float:
-                                                                                    
+
     y_true = np.asarray(y_true, dtype=float).ravel()
     y_pred = np.asarray(y_pred, dtype=float).ravel()
     if y_true.shape != y_pred.shape or not np.all(np.isfinite(y_pred)):
@@ -371,9 +319,8 @@ def complete_oof_rmse(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     return safe_rmse(y_true, y_pred)
 
 
-
 def _sha256_file(path: str, chunk_size: int = 1024 * 1024) -> str:
-                                                                                       
+
     p = Path(path)
     if not p.exists() or not p.is_file():
         raise FileNotFoundError(f"用于 provenance lock 的文件不存在：{p}")
@@ -397,7 +344,7 @@ def _sha256_text_sequence(values: Iterable[Any]) -> str:
 
 
 def _sha256_numeric_array(values: np.ndarray) -> str:
-                                                                            
+
     arr = np.asarray(values, dtype="<f8", order="C")
     h = hashlib.sha256()
     h.update(str(arr.shape).encode("ascii"))
@@ -426,10 +373,7 @@ def _script_identity() -> Dict[str, Any]:
 
 
 def _environment_lock(cfg: Config) -> Dict[str, Any]:
-\
-\
-\
-       
+
     cuda_available = bool(TORCH_AVAILABLE and torch.cuda.is_available())
     torch_device_mode = "cuda" if (cfg.use_gpu_for_torch and cuda_available) else "cpu"
     cuda_device_name = None
@@ -473,7 +417,7 @@ def build_provenance_context(
     Y: np.ndarray,
     cfg: Config,
 ) -> Dict[str, Any]:
-                                                                                     
+
     spectral_path = Path(spectral_file)
     phys_path = Path(phys_file)
 
@@ -522,7 +466,7 @@ def scientific_config_payload(
     algorithms: Optional[List[str]] = None,
     provenance: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
-                                                                                        
+
     if provenance is None:
         raise RuntimeError(
             "run signature 缺少 data/code/environment provenance；"
@@ -600,9 +544,6 @@ def run_signature(
     return hashlib.sha256(raw.encode("utf-8")).hexdigest(), payload
 
 
-                                                              
-      
-                                                              
 def safe_rmse(y_true, y_pred) -> float:
     y_true = np.asarray(y_true, dtype=float).ravel()
     y_pred = np.asarray(y_pred, dtype=float).ravel()
@@ -657,9 +598,6 @@ def normalize_score(s: np.ndarray):
     return (s - mn) / (mx - mn)
 
 
-                                                              
-      
-                                                              
 def read_input_tables(spectral_file: str, phys_file: str):
     print(f"正在读取光谱数据：{spectral_file}")
     print(f"正在读取理化指标数据：{phys_file}")
@@ -698,12 +636,7 @@ def read_input_tables(spectral_file: str, phys_file: str):
 
 
 def load_predeclared_exclusions(path: Optional[str]) -> pd.DataFrame:
-\
-\
-\
-\
-\
-       
+
     columns = ["target", "sampleName", "reason"]
     if path is None or str(path).strip() == "":
         return pd.DataFrame(columns=columns)
@@ -743,7 +676,7 @@ def resolve_target_population(
     exclusions: pd.DataFrame,
     cfg: Config,
 ):
-                                                                                   
+
     y = np.asarray(y, dtype=float).ravel()
     sample_names = np.asarray(sample_names, dtype=str)
     finite = np.isfinite(y)
@@ -791,9 +724,6 @@ def resolve_target_population(
     return keep, population_meta, audit_rows
 
 
-                                                              
-       
-                                                              
 def sg_smooth(X: np.ndarray, window: int = 17, polyorder: int = 2):
     n_var = X.shape[1]
     win = min(window, n_var)
@@ -956,13 +886,7 @@ _PREPROCESS_STEPS = {
 
 
 class SpectralPreprocessor:
-\
-\
-\
-\
-\
-\
-       
+
 
     def __init__(self, method: str, wavelengths: np.ndarray):
         self.method = str(method).upper()
@@ -1053,16 +977,12 @@ class SpectralPreprocessor:
 
 
 def apply_preprocess(X: np.ndarray, wavelengths: np.ndarray, method: str):
-\
-\
-\
-\
-       
+
     return SpectralPreprocessor(method, wavelengths).fit_transform(X)
 
 
 def remove_bad_variables_train_test(X_train: np.ndarray, X_test: np.ndarray):
-                                                                                           
+
     good = np.all(np.isfinite(X_train), axis=0) & (np.nanstd(X_train, axis=0) > 1e-12)
     return X_train[:, good], X_test[:, good], good
 
@@ -1072,9 +992,6 @@ def remove_bad_variables(X: np.ndarray):
     return X[:, good], good
 
 
-                                                              
-      
-                                                              
 def can_apply_y_transform(y: np.ndarray, method: str):
     method = method.lower()
     y = np.asarray(y, dtype=float)
@@ -1086,7 +1003,7 @@ def can_apply_y_transform(y: np.ndarray, method: str):
 
 
 class TargetTransformer:
-                                                                  
+
 
     def __init__(self, method: str):
         self.method = str(method).lower()
@@ -1117,7 +1034,7 @@ class TargetTransformer:
         raise ValueError(f"未知 y 变换：{self.method}")
 
     def inverse_transform(self, z: np.ndarray):
-                                                                                              
+
         if not self.fitted_:
             raise RuntimeError("TargetTransformer 尚未拟合。")
         z = np.asarray(z, dtype=float)
@@ -1133,21 +1050,13 @@ class TargetTransformer:
 
 
 def transform_y(y: np.ndarray, method: str):
-                                                                                              
+
     tr = TargetTransformer(method).fit(y)
     return tr.transform(y), tr.inverse_transform
 
 
-                                                              
-           
-                                                              
 def mccv_outlier_keep(X: np.ndarray, y: np.ndarray, cfg: Config, random_state: Optional[int] = None):
-\
-\
-\
-\
-\
-       
+
     n = X.shape[0]
     keep = np.ones(n, dtype=bool)
     if not cfg.enable_outlier_filter or n < 15:
@@ -1203,7 +1112,7 @@ def mccv_outlier_keep(X: np.ndarray, y: np.ndarray, cfg: Config, random_state: O
 
 
 def _repeated_kfold_splits(n_samples: int, n_splits: int, n_repeats: int, random_state: int):
-                                                                                        
+
     n_splits = max(2, min(int(n_splits), int(n_samples)))
     for rep in range(max(1, int(n_repeats))):
         seed = stable_seed(random_state, "inner_cv", rep)
@@ -1213,7 +1122,7 @@ def _repeated_kfold_splits(n_samples: int, n_splits: int, n_repeats: int, random
 
 
 def _feature_scores_pls_corr(X: np.ndarray, y: np.ndarray, cfg: Config) -> np.ndarray:
-                                                                                 
+
     X = np.asarray(X, dtype=float)
     y = np.asarray(y, dtype=float).ravel()
     p = X.shape[1]
@@ -1244,7 +1153,7 @@ def _feature_rank_pls_corr(X: np.ndarray, y: np.ndarray, cfg: Config) -> np.ndar
 
 
 def _select_contiguous_feature_window(X: np.ndarray, y: np.ndarray, count: int, cfg: Config) -> np.ndarray:
-                                                                                    
+
     p = int(X.shape[1])
     k = max(1, min(int(count), p))
     if k >= p:
@@ -1269,7 +1178,7 @@ def _valid_feature_counts(p: int, n: int, cfg: Config) -> List[int]:
 
 
 def _select_one_se(means: np.ndarray, ses: np.ndarray, complexities: List[float], enabled: bool) -> int:
-                                                                                 
+
     means = np.asarray(means, dtype=float)
     ses = np.asarray(ses, dtype=float)
     finite = np.isfinite(means)
@@ -1290,12 +1199,7 @@ def adaptive_select_features(
     cfg: Config,
     random_state: Optional[int] = None,
 ) -> np.ndarray:
-\
-\
-\
-\
-\
-       
+
     X = np.asarray(X, dtype=float)
     y_raw = np.asarray(y_raw, dtype=float).ravel()
     p = X.shape[1]
@@ -1360,7 +1264,7 @@ def adaptive_feature_count_from_raw(
     cfg: Config,
     random_state: Optional[int] = None,
 ) -> int:
-                                                                                           
+
     X_raw = np.asarray(X_raw, dtype=float)
     y_raw = np.asarray(y_raw, dtype=float).ravel()
     if not cfg.enable_feature_selection:
@@ -1411,16 +1315,10 @@ def adaptive_feature_count_from_raw(
     return int(candidates[pos])
 
 
-                                                         
 def cars_select_features(X: np.ndarray, y: np.ndarray, cfg: Config, random_state: Optional[int] = None):
     return adaptive_select_features(X, np.asarray(y, dtype=float), "raw", cfg, random_state)
 
 
-                                                              
-      
-                                                              
-      
-                                                              
 def kennard_stone_split(X: np.ndarray, train_ratio: float):
     n = X.shape[0]
     n_train = max(2, int(round(train_ratio * n)))
@@ -1470,12 +1368,7 @@ def hybrid_split(X: np.ndarray, y: np.ndarray, train_ratio: float, rep: int, ran
 
 
 def build_shared_outer_splits(X: np.ndarray, y: np.ndarray, cfg: Config) -> List[SplitSpec]:
-\
-\
-\
-\
-\
-       
+
     if str(cfg.outer_split_method).lower() != "response_stratified_random":
         raise ValueError("正式论文流程仅允许 outer_split_method='response_stratified_random'.")
     specs: List[SplitSpec] = []
@@ -1514,7 +1407,7 @@ def legacy_configuration_split_id(
     train_ratio: float,
     repeat_id: int,
 ) -> int:
-                                                                                  
+
     yi = list(cfg.target_transforms).index(y_transform)
     pi = list(cfg.preprocess_methods).index(preprocess)
     ri = list(cfg.train_ratio_list).index(float(train_ratio))
@@ -1522,14 +1415,6 @@ def legacy_configuration_split_id(
                 * cfg.n_repeated_split) + int(repeat_id))
 
 
-                                                              
-       
-
-                                                              
-       
-                                                              
-       
-                                                              
 class RBFLSSVMRegressor(BaseEstimator, RegressorMixin):
     def __init__(self, gammas=None, sigmas=None, cv=5, random_state=2026):
         self.gammas = gammas
@@ -1601,7 +1486,7 @@ class RBFLSSVMRegressor(BaseEstimator, RegressorMixin):
 
 
 class ELMRegressor(BaseEstimator, RegressorMixin):
-                                                                                  
+
 
     def __init__(self, hidden_list=(20, 40, 80, 120),
                  lambdas=(1e-4, 1e-3, 1e-2, 1e-1),
@@ -1721,7 +1606,7 @@ class PCRRegressor(BaseEstimator, RegressorMixin):
 
 
 class PLSLSSVMRegressor(BaseEstimator, RegressorMixin):
-                                                                         
+
 
     def __init__(self, max_components=20, cv=3, random_state=2026, gammas=None, sigmas=None):
         self.max_components = max_components
@@ -1734,7 +1619,7 @@ class PLSLSSVMRegressor(BaseEstimator, RegressorMixin):
         X = np.asarray(X, dtype=float)
         y = np.asarray(y, dtype=float).ravel()
 
-                                                                
+
         local_cfg = Config(
             max_pls_components=self.max_components,
             inner_cv_folds=max(3, self.cv),
@@ -1752,7 +1637,7 @@ class PLSLSSVMRegressor(BaseEstimator, RegressorMixin):
         kf = KFold(n_splits=min(self.cv, len(y)), shuffle=True, random_state=self.random_state)
         folds = list(kf.split(X))
 
-                                                                                                          
+
         fold_latent = []
         for fold_id, (tr, te) in enumerate(folds, start=1):
             n_comp_fold = max(1, min(best_comp, len(tr) - 2, X.shape[1]))
@@ -1801,11 +1686,6 @@ class PLSLSSVMRegressor(BaseEstimator, RegressorMixin):
         return self.lssvm_.predict(self.pls_.transform(np.asarray(X, dtype=float)))
 
 
-                                                              
-        
-                                                              
-        
-                                                              
 if TORCH_AVAILABLE:
     class TorchMLPNet(nn.Module):
         def __init__(self, in_dim):
@@ -1898,7 +1778,7 @@ class TorchRegressor(BaseEstimator, RegressorMixin):
         device = torch.device("cuda" if self.use_gpu and torch.cuda.is_available() else "cpu")
         self.device_ = str(device)
 
-                                                                                                 
+
         scaler_inner = StandardScaler().fit(X[tr_idx])
         Xtr = scaler_inner.transform(X[tr_idx]).astype(np.float32)
         Xva = scaler_inner.transform(X[va_idx]).astype(np.float32)
@@ -1942,7 +1822,7 @@ class TorchRegressor(BaseEstimator, RegressorMixin):
 
         self.best_epoch_ = int(best_epoch)
 
-                                                                                                  
+
         self.scaler_ = StandardScaler().fit(X)
         self.y_mu_ = float(np.mean(y))
         self.y_sig_ = float(np.std(y)) if np.std(y) > 1e-12 else 1.0
@@ -1965,11 +1845,6 @@ class TorchRegressor(BaseEstimator, RegressorMixin):
         return pred * self.y_sig_ + self.y_mu_
 
 
-                                                              
-           
-                                                              
-           
-                                                              
 def grids_for(cfg: Config):
     level = cfg.search_level.lower()
     if level == "wide":
@@ -2004,7 +1879,7 @@ def grids_for(cfg: Config):
 
 
 class StandardizedTargetRegressor(BaseEstimator, RegressorMixin):
-                                                                                     
+
     def __init__(self, estimator):
         self.estimator = estimator
 
@@ -2086,7 +1961,7 @@ def fit_best_ridge(X, y_work, cfg: Config, random_state=2026,
             except Exception:
                 errors[i].append(float("inf"))
     means, ses = _candidate_stats(errors)
-                                               
+
     complexity = [float(1.0 / a) for a in alphas]
     pos = _select_one_se(means, ses, complexity, cfg.use_one_standard_error_rule)
     return Pipeline([("scaler", StandardScaler()), ("model", Ridge(alpha=float(alphas[pos])))]) .fit(X, y_work)
@@ -2094,7 +1969,7 @@ def fit_best_ridge(X, y_work, cfg: Config, random_state=2026,
 
 def fit_best_lasso(X, y_work, cfg: Config, random_state=2026,
                    y_raw: Optional[np.ndarray] = None, target_method: str = "raw"):
-                                                                                       
+
     y_work = np.asarray(y_work, dtype=float).ravel()
     y_raw = y_work if y_raw is None else np.asarray(y_raw, dtype=float).ravel()
     alphas = np.logspace(-3, 2, 36)
@@ -2124,7 +1999,7 @@ def fit_best_lasso(X, y_work, cfg: Config, random_state=2026,
 
 def fit_best_elasticnet(X, y_work, cfg: Config, random_state=2026,
                         y_raw: Optional[np.ndarray] = None, target_method: str = "raw"):
-                                                           
+
     y_work = np.asarray(y_work, dtype=float).ravel()
     y_raw = y_work if y_raw is None else np.asarray(y_raw, dtype=float).ravel()
     l1_values = [0.10, 0.25, 0.50, 0.75, 0.90]
@@ -2292,9 +2167,7 @@ def fit_best_knn(X, y_work, cfg: Config, random_state=2026,
 
 
 def make_adaboost_regressor(random_state: int):
-\
-\
-       
+
     tree = DecisionTreeRegressor(max_depth=3, min_samples_leaf=2, random_state=random_state)
     try:
         return AdaBoostRegressor(
@@ -2441,7 +2314,7 @@ def _prepare_nested_stacking_folds(
     random_state: int,
     n_splits: int = 5,
 ):
-                                                                                        
+
     X_raw = np.asarray(stacking_context["X_train_raw"], dtype=float)
     y_raw = np.asarray(stacking_context["y_train_raw"], dtype=float).ravel()
     method = str(stacking_context["preprocess_method"])
@@ -2486,7 +2359,7 @@ def _oof_full_predictions(
     y_train_raw: Optional[np.ndarray] = None, target_method: str = "raw",
     prepared_folds: Optional[List[Dict[str, Any]]] = None,
 ):
-                                                                                               
+
     y_train = np.asarray(y_train, dtype=float).ravel()
     y_train_raw = y_train if y_train_raw is None else np.asarray(y_train_raw, dtype=float).ravel()
     oof = np.full(len(y_train), np.nan, dtype=float)
@@ -2530,7 +2403,7 @@ def _collect_oof_bases(
     y_train_raw: Optional[np.ndarray] = None, target_method: str = "raw",
     stacking_context: Optional[Dict[str, Any]] = None,
 ):
-                                                                                        
+
     y_train_raw = np.asarray(y_train if y_train_raw is None else y_train_raw, dtype=float).ravel()
     prepared_folds = None
     if cfg.strict_stacking_nested_preprocess:
@@ -2608,20 +2481,8 @@ def fit_predict_super_stacking(
     return meta.predict(Ztr), meta.predict(Zte)
 
 
-                                                              
-      
-
-                                                              
-      
-                                                              
-      
-                                                              
 def _require_complete_finite_prediction(values: np.ndarray, expected_length: int, label: str) -> np.ndarray:
-\
-\
-\
-\
-       
+
     arr = np.asarray(values, dtype=float).ravel()
     if arr.size != int(expected_length):
         raise RuntimeError(
@@ -2783,7 +2644,7 @@ def prediction_rows(item: ModelResult):
 
 
 def best_by_algorithm(records: List[ModelResult]):
-                                                                                           
+
     out = []
     for name in sorted({r.model_name for r in records}):
         sub = [r for r in records if r.model_name == name]
@@ -2852,12 +2713,7 @@ def validate_factorial_design(cfg: Config, algs: List[str]):
 
 
 def prepare_cache_for_split(X0, y0, sample_names0, wavelengths, split: SplitSpec, cfg: Config, population_meta: Dict[str, Any]):
-\
-\
-\
-\
-\
-       
+
     cache = {}
     raw_train_indices = np.asarray(split.train_idx, dtype=int)
     X_train_raw_all = X0[raw_train_indices]
@@ -2872,7 +2728,7 @@ def prepare_cache_for_split(X0, y0, sample_names0, wavelengths, split: SplitSpec
         calibration_keep = mccv_outlier_keep(
             X_train_raw_all, y_train_raw_all, cfg, random_state=out_seed
         )
-                                                                                
+
         minimum_keep = max(12, int(round(0.85 * len(y_train_raw_all))))
         if int(calibration_keep.sum()) < minimum_keep:
             calibration_keep[:] = True
@@ -3002,12 +2858,7 @@ def run_parallel_tasks(target, tasks, cfg: Config, progress_label: str = ""):
                 print(f"[{i+1:6d}/{total:6d}] 失败：{algorithm} | {method} | y={y_transform} | {msg}", flush=True)
         return res, err
 
-               
-                               
-                                                        
-                                                
-                                                          
-                                            
+
     deep_names = {x.upper() for x in cfg.deep_algorithms}
     serial_classical_names = {"CATBOOST"}
 
@@ -3041,7 +2892,7 @@ def run_parallel_tasks(target, tasks, cfg: Config, progress_label: str = ""):
 
     outputs = []
 
-                 
+
     if classical:
         outputs.extend(
             Parallel(
@@ -3053,12 +2904,11 @@ def run_parallel_tasks(target, tasks, cfg: Config, progress_label: str = ""):
             )
         )
 
-                                       
-                                                  
+
     for i, task in serial_classical:
         outputs.append(_run_one(i, task))
 
-                                                                                            
+
     for i, task in deep:
         outputs.append(_run_one(i, task))
 
@@ -3082,8 +2932,7 @@ def run_target(target, X0, y0, sample_names0, wavelengths, cfg: Config, populati
     algs = algorithm_list(cfg)
     validate_factorial_design(cfg, algs)
 
-                                                                               
-                                                                                 
+
     X_model = X0
     y_model = y0
     sn_model = sample_names0
@@ -3181,13 +3030,8 @@ def run_target(target, X0, y0, sample_names0, wavelengths, cfg: Config, populati
     return records, best_alg_records, best
 
 
-                                                              
-          
-                                                              
-          
-                                                              
 def _safe_sheet_name(name: str) -> str:
-                                        
+
     bad = ['\\', '/', '*', '?', ':', '[', ']']
     for ch in bad:
         name = name.replace(ch, '_')
@@ -3195,7 +3039,7 @@ def _safe_sheet_name(name: str) -> str:
 
 
 def _write_dataframe_split(writer, df: pd.DataFrame, base_sheet: str, max_rows: int = 1_000_000):
-                                                                    
+
     base_sheet = _safe_sheet_name(base_sheet)
     if df is None or df.empty:
         pd.DataFrame().to_excel(writer, sheet_name=base_sheet, index=False)
@@ -3253,7 +3097,7 @@ def _outlier_manifest(all_records: List[ModelResult]) -> pd.DataFrame:
 
 
 def _selected_variable_manifest(all_records: List[ModelResult]) -> pd.DataFrame:
-                                                                                              
+
     seen = {}
     continuous_names = {"TORCH1DCNN", "TORCHCNNGRU"}
     for r in all_records:
@@ -3294,12 +3138,7 @@ def export_excel(best_summary, all_records, best_by_alg_records, cfg: Config,
                  algs: Optional[List[str]] = None,
                  provenance: Optional[Dict[str, Any]] = None,
                  exclusion_audit_rows: Optional[List[Dict[str, Any]]] = None):
-\
-\
-\
-\
-\
-       
+
     best_df = pd.DataFrame([r.metric_row() for r in best_summary]).reindex(columns=METRIC_OUTPUT_COLUMNS)
     all_df = pd.DataFrame([r.metric_row() for r in all_records]).reindex(columns=METRIC_OUTPUT_COLUMNS)
     alg_df = pd.DataFrame([r.metric_row() for r in best_by_alg_records]).reindex(columns=METRIC_OUTPUT_COLUMNS)
@@ -3325,7 +3164,7 @@ def export_excel(best_summary, all_records, best_by_alg_records, cfg: Config,
             ["_targetOrder", "modelName", "setType", "sampleName"]
         ).drop(columns="_targetOrder")
 
-                                                         
+
     if list(best_df.columns) != METRIC_OUTPUT_COLUMNS:
         raise RuntimeError("BestSummary 列结构与参考工作簿不一致。")
     if list(alg_df.columns) != METRIC_OUTPUT_COLUMNS:
@@ -3380,7 +3219,7 @@ def export_excel(best_summary, all_records, best_by_alg_records, cfg: Config,
             csv_dir / "PredeclaredExclusionAudit.csv", index=False, encoding="utf-8-sig"
         )
 
-                                                                                      
+
     with pd.ExcelWriter(cfg.output_excel, engine="openpyxl") as writer:
         _write_dataframe_split(writer, best_df, "BestSummary")
         _write_dataframe_split(writer, alg_df, "BestByTargetAlgorithm")
@@ -3390,16 +3229,8 @@ def export_excel(best_summary, all_records, best_by_alg_records, cfg: Config,
     return best_df, alg_df, all_df, pred_df
 
 
-                                                              
-        
-
-                                                              
-        
-                                                              
-        
-                                                              
 def _target_key(name: Any) -> str:
-                                  
+
     return str(name).strip()
 
 
@@ -3486,13 +3317,10 @@ def save_checkpoint(cfg: Config, all_records, all_best_by_alg, best_summary, com
 
 
 def remove_checkpoint_if_finished(cfg: Config):
-                                                     
+
     return
 
 
-                                                              
-     
-                                                              
 def print_environment(cfg: Config):
     import sklearn
     print("========== 运行环境 ==========")
@@ -3523,8 +3351,7 @@ def run_baijiu_model(spectral_file="MoNiJiu.xlsx", phys_file="HuaXueZhiBiao.xlsx
     algs = algorithm_list(cfg)
     validate_factorial_design(cfg, algs)
 
-                                                   
-                            
+
     provenance = build_provenance_context(
         spectral_file, phys_file, wavelengths, sample_names, target_names, X, Y, cfg
     )
@@ -3536,7 +3363,7 @@ def run_baijiu_model(spectral_file="MoNiJiu.xlsx", phys_file="HuaXueZhiBiao.xlsx
     print(f"Torch device mode: {provenance['environment']['torchDeviceMode']}")
     print("=====================================\n")
 
-                                        
+
     all_records, all_best_by_alg, best_summary, completed_targets = load_checkpoint(
         cfg, algs, provenance
     )
@@ -3554,7 +3381,7 @@ def run_baijiu_model(spectral_file="MoNiJiu.xlsx", phys_file="HuaXueZhiBiao.xlsx
         )
         exclusion_audit_rows.extend(audit_rows)
 
-                                        
+
         if cfg.enable_resume and target_str in completed_targets:
             print("=" * 80)
             print(f"跳过已完成指标：{target_str}")
@@ -3572,11 +3399,11 @@ def run_baijiu_model(spectral_file="MoNiJiu.xlsx", phys_file="HuaXueZhiBiao.xlsx
             best_summary.append(best)
             completed_targets.add(target_str)
 
-                       
+
         if cfg.save_checkpoint_every_target:
             save_checkpoint(cfg, all_records, all_best_by_alg, best_summary, completed_targets, algs, provenance)
 
-                                              
+
         if best_summary:
             original_excel = cfg.output_excel
             tmp_name = Path(original_excel)
@@ -3613,23 +3440,23 @@ def run_baijiu_model(spectral_file="MoNiJiu.xlsx", phys_file="HuaXueZhiBiao.xlsx
 
 if __name__ == "__main__":
     config = Config(
-                      
+
         full_search=True,
-                                        
+
         search_level="balanced",
-                                             
+
         n_repeated_split=10,
-                                                     
+
         n_jobs=6,
         parallel_backend="threading",
         show_realtime_log=True,
         show_detail_each_target=True,
         show_top_n=50,
-                                          
+
         enable_deep_learning=True,
         output_excel="8种酯类拉曼光谱分析结果.xlsx",
 
-                                     
+
         enable_resume=True,
         checkpoint_file="baijiu_bruteforce_checkpoint_OPTIMIZED_V3.pkl",
         save_checkpoint_every_target=True,
