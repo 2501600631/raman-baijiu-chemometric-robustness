@@ -1,0 +1,174 @@
+{
+  "study_title": "A robustness audit of chemometric workflows for Raman fingerprint regression of eight esters in strong-aroma Baijiu",
+  "scope_note": "Metadata-only public specification. Raw Raman spectra and reference concentrations are not included.",
+  "original_sample_count": 80,
+  "sample_ids": "S1-S80",
+  "analytes": [
+    {
+      "analyte": "Ethyl acetate",
+      "abbreviation": "EA",
+      "target_label": "乙酸乙酯",
+      "retained_n": 72
+    },
+    {
+      "analyte": "Ethyl butyrate",
+      "abbreviation": "EB",
+      "target_label": "丁酸乙酯",
+      "retained_n": 66
+    },
+    {
+      "analyte": "Ethyl hexanoate",
+      "abbreviation": "EH",
+      "target_label": "己酸乙酯",
+      "retained_n": 71
+    },
+    {
+      "analyte": "Ethyl lactate",
+      "abbreviation": "EL",
+      "target_label": "乳酸乙酯",
+      "retained_n": 69
+    },
+    {
+      "analyte": "Ethyl valerate",
+      "abbreviation": "EV",
+      "target_label": "戊酸乙酯",
+      "retained_n": 74
+    },
+    {
+      "analyte": "Ethyl heptanoate",
+      "abbreviation": "EHp",
+      "target_label": "庚酸乙酯",
+      "retained_n": 74
+    },
+    {
+      "analyte": "Ethyl octanoate",
+      "abbreviation": "EO",
+      "target_label": "辛酸乙酯",
+      "retained_n": 74
+    },
+    {
+      "analyte": "Hexyl hexanoate",
+      "abbreviation": "HH",
+      "target_label": "己酸己酯",
+      "retained_n": 76
+    }
+  ],
+  "historical_mccv_screening": {
+    "response_informed": true,
+    "performed_before_outer_splits": true,
+    "requested_successful_submodels_per_analyte": 100,
+    "temporary_calibration_fraction": 0.78,
+    "plsr_max_components": 12,
+    "threshold_rule": "mean absolute prediction error > median + 3*MAD",
+    "random_state": 2026,
+    "historical_max_outlier_ratio_guard": 0.18
+  },
+  "factorial_workflow": {
+    "pretreatments": [
+      "RAW",
+      "CENTER",
+      "STANDARDIZE",
+      "MINMAX",
+      "ROBUST",
+      "VECTOR_NORM",
+      "AREA_NORM",
+      "SG",
+      "SG1",
+      "SG2",
+      "MSC",
+      "SNV",
+      "DETREND",
+      "BASELINE_POLY2",
+      "BASELINE_POLY3",
+      "SNV-SG",
+      "MSC-SG",
+      "SG-SNV",
+      "SG-MSC",
+      "DE1",
+      "DE2",
+      "DE1-SNV",
+      "DE1-MSC",
+      "DE2-SNV",
+      "DE2-MSC",
+      "BASELINE_POLY2-SNV",
+      "BASELINE_POLY2-MSC",
+      "BASELINE_POLY2-SG"
+    ],
+    "response_transformations": [
+      "raw",
+      "log1p",
+      "sqrt",
+      "standard"
+    ],
+    "calibration_set_proportions": [
+      0.75,
+      0.8,
+      0.85
+    ],
+    "outer_splits_per_proportion": 10,
+    "outer_split_design": "response-stratified random",
+    "algorithms": [
+      "PLS",
+      "PCR",
+      "Ridge",
+      "LASSO",
+      "ElasticNet",
+      "BayesianRidge",
+      "Huber",
+      "SVR-RBF",
+      "SVR-Linear",
+      "KRR-RBF",
+      "RBF-LS-SVM",
+      "PLS-LSSVM",
+      "GPR-SE",
+      "GPR-Matern32",
+      "RandomForest",
+      "ExtraTrees",
+      "GradientBoosting",
+      "HistGBR",
+      "AdaBoost",
+      "KNN",
+      "ANN-MLP",
+      "ELM",
+      "XGBoost",
+      "LightGBM",
+      "CatBoost",
+      "TorchMLP",
+      "Torch1DCNN",
+      "TorchCNNGRU",
+      "WeightedStacking",
+      "SuperStacking"
+    ],
+    "fixed_configurations_per_analyte": 10080,
+    "split_specific_evaluations_per_analyte": 100800,
+    "split_specific_evaluations_total": 806400,
+    "selected_variable_count": 158,
+    "feature_score": "0.70 * scaled_abs_PLS_coefficient + 0.30 * scaled_abs_Pearson_correlation"
+  },
+  "criterion": {
+    "Rp2_min": 0.75,
+    "absolute_Rc2_minus_Rp2_max": 0.2
+  },
+  "CRS": {
+    "status": "study-specific post hoc prioritization score",
+    "weights": {
+      "median_Rp2": 0.25,
+      "Q10_Rp2": 0.2,
+      "criterion_meeting_proportion": 0.2,
+      "calibration_prediction_agreement": 0.15,
+      "split_stability": 0.15,
+      "numerical_reliability": 0.05
+    },
+    "severe_numerical_failure_threshold": "Rp2 < -10",
+    "weight_sensitivity_seed": 20260726,
+    "weight_sensitivity_draws": 5000,
+    "dirichlet_alpha": [
+      20,
+      16,
+      16,
+      12,
+      12,
+      4
+    ]
+  }
+}

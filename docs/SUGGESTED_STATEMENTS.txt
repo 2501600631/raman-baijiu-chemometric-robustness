@@ -1,0 +1,10 @@
+Suggested manuscript/repository statements
+=========================================
+
+Data availability
+-----------------
+The research data supporting the findings of this study are not publicly available because of confidentiality and data-ownership restrictions associated with the source of the samples and reference data. Data may be made available from the corresponding author upon reasonable request, subject to permission from the data owner and applicable confidentiality restrictions.
+
+Code availability
+-----------------
+The principal modeling code and non-sensitive reproducibility materials, including the analyte-specific inclusion/exclusion manifest and software-environment specifications, are publicly available in the project GitHub repository. The complete large derived result archives are retained by the authors and are not included in the public GitHub repository.
