@@ -1,0 +1,27 @@
+# Confidential/private experimental data
+data/
+private_data/
+*.xlsx
+*.xls
+
+# Large derived archives
+results/
+*.parquet
+*.feather
+*.csv.gz
+*.pkl
+*.pickle
+*.joblib
+*.pt
+*.pth
+
+# Runtime/checkpoint outputs
+baijiu_bruteforce_models/
+baijiu_bruteforce_checkpoint.pkl
+__pycache__/
+*.pyc
+
+# Keep public manifests and metadata
+!manifests/*.csv
+!environment/*.txt
+!docs/*.txt
