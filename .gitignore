@@ -1,0 +1,27 @@
+# Generated model-search outputs and checkpoints
+results/
+private_data/
+*.pkl
+*.pickle
+*.joblib
+*.pt
+*.pth
+
+# Large optional derived archives
+*.parquet
+*.feather
+*.csv.gz
+
+# Python runtime files
+__pycache__/
+*.pyc
+*.pyo
+
+# Editor / operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+~$*
+
+# The two public .xlsx input datasets in data/ are intentionally tracked.

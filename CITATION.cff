@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the associated article and this software release."
+title: "Raman-Baijiu chemometric robustness audit"
+type: software
+authors:
+  - family-names: Cai
+    given-names: Xu
+  - family-names: Li
+    given-names: Li
+  - family-names: Qiu
+    given-names: Ran
+  - family-names: Tang
+    given-names: Peng
+  - family-names: Yang
+    given-names: Lei
+  - family-names: Shi
+    given-names: Yao
+  - family-names: Zong
+    given-names: Xuyan
+repository-code: "https://github.com/2501600631/raman-baijiu-chemometric-robustness"
+version: "1.0.0"
+date-released: "2026-08-06"
+license: MIT
