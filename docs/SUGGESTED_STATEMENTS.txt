@@ -1,0 +1,14 @@
+Suggested manuscript statements
+===============================
+
+Data availability
+-----------------
+The experimental data used for the chemometric analyses in this study are publicly available in the project GitHub repository at https://github.com/2501600631/raman-baijiu-chemometric-robustness/. The repository includes the sample-mean Raman spectra for all 80 Baijiu samples (data/raman_sample_mean_spectra_80_samples.xlsx) and the corresponding GC-MS reference concentrations of the eight target esters (data/gcms_reference_concentrations_8_esters_80_samples.xlsx). Sample identifiers S1-S80 are consistent across the two files. The analyte-specific inclusion/exclusion manifest and workflow specification are also provided in machine-readable form. The complete split-specific derived performance archive and CRS intermediate tables are not included in the repository because they are large derived outputs.
+
+Code availability
+-----------------
+The principal modeling code and supporting reproducibility materials are publicly available at https://github.com/2501600631/raman-baijiu-chemometric-robustness/. The repository includes the principal full-search implementation, the historical MCCV screening implementation, analyte-specific sample manifests, a machine-readable workflow specification, software-environment records, integrity-check materials, and the experimental input datasets described under Data availability.
+
+Methods sentence for public inputs
+----------------------------------
+The sample-mean Raman spectra and GC-MS reference concentrations used for chemometric analysis are publicly available in the project repository as data/raman_sample_mean_spectra_80_samples.xlsx and data/gcms_reference_concentrations_8_esters_80_samples.xlsx, respectively.
